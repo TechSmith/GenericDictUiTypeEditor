@@ -14,9 +14,9 @@ A UITypeEditor for editing generic dictionaries (Dictionary<TKey, TValue>) in th
  - Custom AttributeProviders for Key and/or Value
  - Custom DisplayNames for Key and/or Value
 
-# Example: 
+# Example 1: 
 ```C#
- public class Example
+public class Example
 {
    [Editor(typeof(DictionaryEditor<string, string>), typeof(UITypeEditor))]
    [GenericDictionaryEditor(Title="This is an example",ValueEditorType=typeof(FileNameEditor))]
@@ -31,5 +31,19 @@ A UITypeEditor for editing generic dictionaries (Dictionary<TKey, TValue>) in th
       ExampleDict = new Dictionary<string, string>();
       ExampleDict2 = new Dictionary<int, Example>();
    }
+}
+```
+
+## Example 2
+```C#
+[Serializable()]
+[Editor(typeof(DictionaryEditor<int, List<string>>), typeof(UITypeEditor))]
+[GenericDictionaryEditor(ValueConverterType=typeof(ExpandableObjectConverter))]
+public class CustomDictionary : Dictionary<string, List<string>>
+{
+  public override ToString()
+  {
+    JsonConvert.SerializeObject(this);
+  }
 }
 ```
