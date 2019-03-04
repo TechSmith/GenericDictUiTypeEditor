@@ -6,15 +6,15 @@
     <NugetPublishSource>"$(PublishSource))"</NugetPublishSource>
     <NugetPublishFolder>"$(PublishFolder)"</NugetPublishFolder>
   </PropertyGroup>
-  <Target Name="localNugetPack" AfterTargets="Build" DependsOnTargets="Build">
+  <Target Name="localNugetPack" AfterTargets="Build" DependsOnTargets="Build" Condition="$(Configuration)==Debug">
     <Message Importance="High" Text="nuget pack $(ProjectPath) -OutputDirectory $(NugetPublishSource)" />
     <Exec Command="nuget pack $(ProjectPath) -OutputDirectory $(NugetPublishSource)" />
   </Target>
-  <Target Name="localNugetPublish" AfterTargets="localNugetPack" DependsOnTargets="localNugetPack">
+  <Target Name="localNugetPublish" AfterTargets="localNugetPack" DependsOnTargets="localNugetPack" Condition="$(Configuration)==Debug">
     <Message Importance="High" Text="nuget init $(NugetPublishSource) $(NugetPublishFolder)" />
     <Exec Command="nuget init $(NugetPublishSource) $(NugetPublishFolder)" />
   </Target>
-  <Target Name="localNugetPackClean" BeforeTargets="CoreClean">
+  <Target Name="localNugetPackClean" BeforeTargets="CoreClean" Condition="$(Configuration)==Debug">
     <Message Importance="High" Text="Removing: $(PublishFolder)\$(TargetName)" />
     <RemoveDir Directories="$(PublishFolder)\$(TargetName)"/>
   </Target>
