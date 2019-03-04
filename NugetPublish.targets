@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PublishSource>$(TargetDir.TrimEnd('\'))</PublishSource>
+    <PublishFolder>$(USERPROFILE)\Tools\localpackages</PublishFolder>
+    <NugetPublishSource>"$(PublishSource))"</NugetPublishSource>
+    <NugetPublishFolder>"$(PublishFolder)"</NugetPublishFolder>
+  </PropertyGroup>
+  <Target Name="localNugetPack" AfterTargets="Build" DependsOnTargets="Build">
+    <Message Importance="High" Text="nuget pack $(ProjectPath) -OutputDirectory $(NugetPublishSource)" />
+    <Exec Command="nuget pack $(ProjectPath) -OutputDirectory $(NugetPublishSource)" />
+  </Target>
+  <Target Name="localNugetPublish" AfterTargets="localNugetPack" DependsOnTargets="localNugetPack">
+    <Message Importance="High" Text="nuget init $(NugetPublishSource) $(NugetPublishFolder)" />
+    <Exec Command="nuget init $(NugetPublishSource) $(NugetPublishFolder)" />
+  </Target>
+  <Target Name="localNugetPackClean" BeforeTargets="CoreClean">
+    <Message Importance="High" Text="Removing: $(PublishFolder)\$(TargetName)" />
+    <RemoveDir Directories="$(PublishFolder)\$(TargetName)"/>
+  </Target>
+</Project>

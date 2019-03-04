@@ -328,3 +328,5 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+/%USERPROFILE%/Tools/localpackages/genericdictionaryuitypeeditor/1.0.0/genericdictionaryuitypeeditor.nuspec
+/%USERPROFILE%/Tools/localpackages/genericdictionaryuitypeeditor/1.0.0/genericdictionaryuitypeeditor.1.0.0.nupkg.sha512
