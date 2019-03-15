@@ -72,17 +72,4 @@ namespace ApplicationSettings
         /// </summary>
         public string ValueDisplayName { get; set; }
     }
-
-   /// <summary>
-   /// Provides configuration options for the GenericDictionaryEditor.
-   /// </summary>
-   [AttributeUsage( AttributeTargets.Property | AttributeTargets.Class, AllowMultiple = false )]
-   public class DimensionSettingsEditorAttribute : GenericDictionaryEditorAttribute
-   {
-      public DimensionSettingsEditorAttribute()
-      {
-         KeyDisplayName = "Settings Type";
-         ValueDisplayName = "Settings List";
-      }
-   }
 }
