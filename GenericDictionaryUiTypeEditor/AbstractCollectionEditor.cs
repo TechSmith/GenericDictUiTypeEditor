@@ -1,32 +1,42 @@
 ﻿using System;
 using System.ComponentModel.Design;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using GenericDictionaryUiTypeEditor;
 
-namespace ApplicationSettings
+namespace GenericDictionaryUiTypeEditor
 {
    public class AbstractCollectionEditor : CollectionEditor
    {
 
-      private readonly Type[] _supportedTypesList;
+      private Type[] _supportedTypesList;
+      private readonly Type _type;
 
       public AbstractCollectionEditor( Type type ) : base( type )
       {
-         var attribute = Attribute.GetCustomAttribute( type, typeof( AbstractCollectionEditorAttribute ) );
+         _type = type;
+      }
+
+      protected override Type[] CreateNewItemTypes()
+      {
+         var attribute = Attribute.GetCustomAttribute( _type, typeof( AbstractCollectionEditorAttribute ) );
          if ( attribute != null && attribute is AbstractCollectionEditorAttribute abstractCollectionEditor)
          {
             _supportedTypesList = abstractCollectionEditor.DerivedTypesToEdit;
          }
          else
          {
-            _supportedTypesList = new[] {type};
+            _supportedTypesList = new[] {_type};
          }
+         return _supportedTypesList;
       }
 
-      protected override Type[] CreateNewItemTypes()
+      protected override CollectionForm CreateCollectionForm()
       {
-         return _supportedTypesList;
+         CollectionForm form = base.CreateCollectionForm();
+         Type type = form.GetType();
+         PropertyInfo propertyInfo = type.GetProperty( "CollectionEditable", BindingFlags.Instance | BindingFlags.NonPublic );
+         propertyInfo?.SetValue( form, true );
+         return form;
       }
    }
 }
