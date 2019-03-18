@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Design;
 using System.Reflection;
-using GenericDictionaryUiTypeEditor;
 
 namespace GenericDictionaryUiTypeEditor
 {
