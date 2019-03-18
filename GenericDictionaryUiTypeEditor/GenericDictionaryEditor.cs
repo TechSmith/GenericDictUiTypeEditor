@@ -128,7 +128,7 @@ namespace ApplicationSettings
       /// <returns>An array containing the collection objects, or an empty object array if the specified collection does not inherit from ICollection.</returns>
       protected override object[] GetItems( object editValue )
       {
-         if ( editValue is Dictionary<TKey, TValue> dictionary )
+         if ( editValue is IDictionary<TKey, TValue> dictionary )
          {
             object[] objArray = new object[dictionary.Count];
             int num = 0;
@@ -163,9 +163,9 @@ namespace ApplicationSettings
             throw new ArgumentNullException( nameof( value ) );
          }
 
-         if ( !( editValue is Dictionary<TKey, TValue> dictionary ) )
+         if ( !( editValue is IDictionary<TKey, TValue> dictionary ) )
          {
-            dictionary = editValue.GetType().GetConstructor( null )?.Invoke( null ) as Dictionary<TKey, TValue>;
+            dictionary = editValue.GetType().GetConstructor( null )?.Invoke( null ) as IDictionary<TKey, TValue>;
          }
 
          foreach ( EditableKeyValuePair<TKey, TValue> entry in value )
