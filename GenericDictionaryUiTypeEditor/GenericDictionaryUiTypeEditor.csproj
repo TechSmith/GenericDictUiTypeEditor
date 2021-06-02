@@ -54,6 +54,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractCollectionEditor.cs" />
+    <Compile Include="AbstractCollectionEditorAttribute.cs" />
     <Compile Include="AttributeProvider.cs" />
     <Compile Include="DefaultProvider.cs" />
     <Compile Include="DefaultUsage.cs" />
